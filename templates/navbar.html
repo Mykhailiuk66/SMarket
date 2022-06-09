@@ -1,0 +1,49 @@
+<!-- Nav -->
+<nav class="container-fluid">
+	<ul>
+		<li>
+			<a href="{% url 'trade-hub' %}" class="contrast"
+				><strong>SMarket</strong></a
+			>
+		</li>
+	</ul>
+	<ul>
+		<li class="nav-tabs">
+			<a href="{% url 'trade-hub' %}"
+				><i class="fa-solid fa-arrow-right-arrow-left"></i> Trade Hub</a
+			>
+		</li>
+		<li class="nav-tabs">
+			<a href="#"
+				><i class="fa-solid fa-cart-shopping fa-shake"></i> Market</a
+			>
+		</li>
+	</ul>
+	<ul>
+		<li>
+			<details role="list" dir="rtl">
+				<summary aria-haspopup="listbox" role="link" class="secondary">
+					NickName
+				</summary>
+				<ul role="listbox">
+					<li>
+						<a href="{% url 'profile' %}" data-theme-switcher="auto"
+							>Profile</a
+						>
+					</li>
+					<li>
+						<a href="{% url 'history' %}" data-theme-switcher="auto"
+							>History</a
+						>
+					</li>
+
+					<li><a href="#" data-theme-switcher="dark">Logout</a></li>
+				</ul>
+			</details>
+		</li>
+		<li>
+			<a href="{% url 'history' %}" data-theme-switcher="auto">Login</a>
+		</li>
+	</ul>
+</nav>
+<!-- ./ Nav -->
