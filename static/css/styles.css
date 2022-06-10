@@ -302,10 +302,9 @@ nav {
 
 .history-button,
 .logout-button {
-	/* ... Previous styles ... */
-	padding: 8px 12px; /* Adjust the padding values */
-	font-size: 16px; /* Adjust the font size */
-	width: 20rem; /* Specify a fixed width */
+	padding: 8px 12px;
+	font-size: 16px;
+	width: 20rem;
 }
 
 .logout-button {
@@ -325,13 +324,62 @@ nav {
 	margin-bottom: 5px;
 }
 
-
 .input-group input[type="text"] {
 	width: 50vw;
 	padding: 8px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	font-size: 16px;
-	box-sizing: border-box; /* Include padding in width calculation */
+	box-sizing: border-box;
 }
 /* ############################################ */
+
+.form-error {
+	padding-left: 1rem;
+}
+
+/* ############################################ */
+
+.avatar {
+	position: relative;
+	border-radius: 50%;
+}
+
+.avatar .overlay {
+	position: absolute;
+	border-radius: 50%;
+
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 95%;
+	background: rgba(0, 0, 0, 0);
+	transition: background 0.5s ease;
+}
+
+.avatar:hover .overlay {
+	display: block;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.avatar .button {
+	position: absolute;
+	left: 0;
+	top: -15px;
+	width: -webkit-fill-available;
+	text-align: center;
+	opacity: 0;
+	transition: opacity 0.35s ease;
+}
+
+.avatar .button a {
+	width: 200px;
+	padding: 12px 48px;
+	text-align: center;
+	color: white;
+	z-index: 1;
+}
+
+.avatar:hover .button {
+	opacity: 1;
+}

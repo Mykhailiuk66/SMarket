@@ -20,30 +20,33 @@
 		</li>
 	</ul>
 	<ul>
-		<li>
-			<details role="list" dir="rtl">
-				<summary aria-haspopup="listbox" role="link" class="secondary">
-					NickName
-				</summary>
-				<ul role="listbox">
-					<li>
-						<a href="{% url 'profile' %}" data-theme-switcher="auto"
-							>Profile</a
-						>
-					</li>
-					<li>
-						<a href="{% url 'history' %}" data-theme-switcher="auto"
-							>History</a
-						>
-					</li>
+		{% if request.user.is_authenticated %}
+			<li>
+				<details role="list" dir="rtl">
+					<summary aria-haspopup="listbox" role="link" class="secondary">
+						NickName
+					</summary>
+					<ul role="listbox">
+						<li>
+							<a href="{% url 'profile' %}" data-theme-switcher="auto"
+								>Profile</a
+							>
+						</li>
+						<li>
+							<a href="{% url 'history' %}" data-theme-switcher="auto"
+								>History</a
+							>
+						</li>
 
-					<li><a href="#" data-theme-switcher="dark">Logout</a></li>
-				</ul>
-			</details>
-		</li>
-		<li>
-			<a href="{% url 'history' %}" data-theme-switcher="auto">Login</a>
-		</li>
+						<li><a href="{% url 'logout' %}" data-theme-switcher="dark">Logout</a></li>
+					</ul>
+				</details>
+			</li>
+		{% else %}
+			<li>
+				<a href="{% url 'login' %}" data-theme-switcher="auto">Login</a>
+			</li>
+		{% endif %}
 	</ul>
 </nav>
 <!-- ./ Nav -->
