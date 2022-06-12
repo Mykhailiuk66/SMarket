@@ -17,7 +17,7 @@ class Item(models.Model):
 
 
     def __str__(self):
-        return ("StatTrak™ " if self.stattrak else "") + f"{self.name} ({self.quality.name})"
+        return ("StatTrak™ " if self.stattrak else "") + f"{self.name} ({self.exterior.name})"
     
     class Meta:
         ordering = ["name"]
@@ -26,10 +26,13 @@ class Item(models.Model):
 
 class UserItem(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-    price = models.DecimalField(max_digits=9, decimal_places=2)
+    price = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True)
     float = models.DecimalField(max_digits=18, decimal_places=17, blank=True, null=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.item}"
 
 
 class Trade(models.Model):
@@ -49,9 +52,9 @@ class Trade(models.Model):
 
 
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-    creator = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="creator")
-    second_party = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="second_party")
-    guarantor = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="guarantor")
+    creator = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name="creator")
+    second_party = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True, related_name="second_party")
+    guarantor = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True, related_name="guarantor")
     status = models.CharField(max_length=2, choices=STATUSES, default=NEW)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -67,11 +70,12 @@ class Trade(models.Model):
 class TradeItem(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     trade = models.ForeignKey(Trade, on_delete=models.CASCADE)
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    user = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
+    user_item = models.ForeignKey(UserItem, on_delete=models.CASCADE, null=True, blank=True)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
     
     def __str__(self):
-        return f"{self.trade.id} - {self.item}"
+        return f"{self.trade.id} - {self.user_item}"
 
 
 class ItemQuality(models.Model):

@@ -15,9 +15,7 @@ def profile(request):
         trade_link = request.POST.get('trade-link')
         avatar_img = request.FILES.get('avatar-input')
         
-        print(avatar_img)
         if avatar_img:
-            print('avatar_img True')
             profile.image = avatar_img
         if trade_link is not None:
             profile.trade_url = trade_link
