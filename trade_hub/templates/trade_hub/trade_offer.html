@@ -15,7 +15,7 @@
 			<div class="create-offer-left create-offer-blocks">
 				<div class="items-div">
 					<div class="user-inventory-actions">
-						<a href="#" role="button" class="outline refresh-inv-btn">
+						<a href="{% url 'update-inventory' %}?next={% url 'create-trade-offer' %}" role="button" class="outline refresh-inv-btn">
 							<i class="fa-solid fa-arrows-rotate"></i>
 						</a>
 					</div>

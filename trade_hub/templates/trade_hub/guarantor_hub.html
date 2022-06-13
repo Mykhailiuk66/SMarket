@@ -1,0 +1,119 @@
+{% extends 'main.html' %} 
+
+{% block title %}
+    <title>Trade Hub</title>
+{% endblock title %}
+
+{% block content %}
+
+<div class="container" id="trade-hub-container">
+	{% for trade in trades %}
+		<details open>
+			<summary>
+				<div class="trade-summary-div">
+					<div>
+						<span class="green-text">{{trade.creator.username}}</span> 
+						{% if trade.second_party %} 
+							&#8644; <span class="green-text">{{trade.second_party.username}}</span>
+						{% endif %} 
+						({{trade.get_status_display}})
+					</div>
+				</div>
+			</summary>
+			<div class="trade-offer-block">
+				<div class="offer-left">
+					<table>
+						<tbody>
+							{% for tradeitem in trade.tradeitem_set.all %}
+								{% if tradeitem.user == trade.creator %}
+									<tr>
+										<th scope="row">
+											<img
+												src="{{ tradeitem.user_item.item.image.url }}"
+												alt=""
+												class="offer-small-img"
+												style="border-color: {{ tradeitem.user_item.item.quality.color_hex }}"
+											/>
+										</th>
+										<td>
+											<div>
+												<strong>{% if tradeitem.user_item.item.stattrak %} StatTrak™ {% endif %}{{ tradeitem.user_item.item.name }}</strong>
+												<p>
+													<small> {{tradeitem.user_item.item.exterior.name}} </small>
+												</p>
+											</div>
+										</td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<div>
+					<i class="fa-solid fa-right-left green-text"></i>
+				</div>
+				<div class="offer-right">
+					<table>
+						<tbody>
+							{% if trade.second_party %}
+								{% for tradeitem in trade.tradeitem_set.all %}
+									{% if tradeitem.user == trade.second_party %}
+										<tr>
+											<th scope="row">
+												<img
+													src="{{ tradeitem.user_item.item.image.url }}"
+													alt=""
+													class="offer-small-img"
+													style="border-color: {{ tradeitem.user_item.item.quality.color_hex }}"
+												/>
+											</th>
+											<td>
+												<div>
+													<strong>{% if tradeitem.user_item.item.stattrak %} StatTrak™ {% endif %}{{ tradeitem.user_item.item.name }}</strong>
+													<p>
+														<small> {{tradeitem.user_item.item.exterior.name}} </small>
+													</p>
+												</div>
+											</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								{% for tradeitem in trade.tradeitem_set.all %}
+									{% if tradeitem.user == None %}
+										<tr>
+											<th scope="row">
+												<img
+													src="{{ tradeitem.item.image.url }}"
+													alt=""
+													class="offer-small-img"
+													style="border-color: {{ tradeitem.item.quality.color_hex }}"
+												/>
+											</th>
+											<td>
+												<div>
+													<strong>{% if tradeitem.item.stattrak %} StatTrak™ {% endif %}{{ tradeitem.item.name }}</strong>
+													<p>
+														<small> {{tradeitem.item.exterior.name}} </small>
+													</p>
+												</div>
+											</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="offer-actions">
+				<a href="{% url 'accept-trade' trade.id %}" role="button" class="outline">Accept</a>
+				<a href="{% url 'cancel-trade' trade.id %}" role="button" class="contrast outline">Decline</a>
+		
+
+			</div>
+		</details>
+	{% endfor %}
+
+	{% endblock content %}
+</div>

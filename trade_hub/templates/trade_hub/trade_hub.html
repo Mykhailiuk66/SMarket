@@ -85,11 +85,19 @@
 				</div>
 			</div>
 			<div class="offer-actions">
-				<a href="#" role="button" class="outline">Trade</a>
-				<a href="#" role="button" class="outline">Accept</a>
-				<!-- <a href="#" role="button" class="secondary outline">Change</a> -->
-				<a href="#" role="button" class="contrast outline">Cancel</a>
-				<a href="#" role="button" class="contrast outline">Decline</a>
+				{% if guarantor %}
+					{% if trade.second_party %}
+						<a href="{% url 'accept-trade' trade.id %}" role="button" class="outline">Accept</a>
+					{% endif %}
+					<a href="{% url 'cancel-trade' trade.id %}" role="button" class="contrast outline">Decline</a>
+				{% elif request.user.is_authenticated %}
+					{% if trade.creator != request.user.profile %}
+						<a href="{% url 'accept-trade' trade.id %}" role="button" class="outline">Trade</a>
+					{% endif %}
+					{% if trade.creator == request.user.profile or trade.second_party == request.user.profile %}
+						<a href="{% url 'cancel-trade' trade.id %}" role="button" class="contrast outline">Cancel</a>
+					{% endif %}
+					{% endif %}
 			</div>
 		</details>
 	{% endfor %}

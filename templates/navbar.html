@@ -37,6 +37,16 @@
 								>History</a
 							>
 						</li>
+						
+						{% for group in  request.user.groups.all %}
+							{%  if 'guarantor' == group.name %}
+								<li>
+									<a href="{% url 'guarantor-hub' %}" data-theme-switcher="auto"
+										>Guarantor Hub</a
+									>
+								</li>
+							{% endif %}
+						{% endfor %}
 
 						<li><a href="{% url 'logout' %}" data-theme-switcher="dark">Logout</a></li>
 					</ul>
