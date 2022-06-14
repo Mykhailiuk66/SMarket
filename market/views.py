@@ -50,13 +50,16 @@ def market(request):
                 return redirect('market')
 
             for market_item in buy_items:
+                if market_item.status != MarketItem.NEW:
+                    print(f"{market_item.user_item.item} - already sold")
+
                 seller = market_item.user_item.user
                 user_item = market_item.user_item
 
                 seller.balance += Decimal(float(market_item.price) - (float(market_item.price) * MARKET_FEE / 100))
                 user_item.user = profile
 
-                profile.balance -= market_item.price
+                profile.balance -= market_item.price - (Decimal(profile.discount/100)*market_item.price)
                 profile.total_trade_amount += float(market_item.price)
 
                 market_item.buyer = profile
@@ -89,3 +92,15 @@ def market(request):
         'additional_blocks_items': additional_blocks_items,
     }
     return render(request, 'market/market.html', context=context)
+
+
+@login_required(login_url='login')
+def delist_item(request, pk):
+    market_item = MarketItem.objects.get(id=pk)
+
+    if market_item.status == MarketItem.NEW:
+        market_item.status = MarketItem.CANCELED
+        market_item.save()
+        print('Success')
+
+    return redirect('history')
