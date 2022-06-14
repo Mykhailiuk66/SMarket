@@ -101,6 +101,11 @@ def accept_trade(request, pk):
             else:
                 user_item.user = creator 
             
+            another_trade_items = TradeItem.objects.filter(user_item=user_item).exclude(id__in=trade_items.values_list('id', flat=True))
+            for another_trade_item in another_trade_items:
+                another_trade_item.trade.status = Trade.CANCELED
+                another_trade_item.trade.save()
+
             user_item.save()
         
         trade.guarantor = profile
