@@ -26,7 +26,6 @@ class Item(models.Model):
 
 class UserItem(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-    price = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True)
     float = models.DecimalField(max_digits=18, decimal_places=17, blank=True, null=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)

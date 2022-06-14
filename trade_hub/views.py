@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
-from trade_hub.models import Trade, UserItem, Item, TradeItem
 from django.contrib.auth.decorators import login_required
 import math
+
+from trade_hub.models import Trade, UserItem, Item, TradeItem
+from market.models import MarketItem
 
 from .utils import get_items_to_trade
 
@@ -49,6 +51,10 @@ def create_trade_offer(request):
 
         for user_item_id in user_items_chosen:
             user_item = UserItem.objects.get(id=user_item_id)
+            market_items = user_item.marketitem_set.filter(status=MarketItem.NEW)
+            for market_item in market_items:
+                market_item.status = MarketItem.CANCELED
+
             TradeItem.objects.create(trade=trade, user_item=user_item, user=profile)
 
         for item_id in second_party_items_chosen:

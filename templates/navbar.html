@@ -14,13 +14,18 @@
 			>
 		</li>
 		<li class="nav-tabs">
-			<a href="#"
+			<a href="{% url 'market' %}"
 				><i class="fa-solid fa-cart-shopping fa-shake"></i> Market</a
 			>
 		</li>
 	</ul>
 	<ul>
 		{% if request.user.is_authenticated %}
+			<li>
+				<div class="balance green-text">
+					${{ request.user.profile.balance  }}
+				</div>
+			</li>
 			<li>
 				<details role="list" dir="rtl">
 					<summary aria-haspopup="listbox" role="link" class="secondary">
