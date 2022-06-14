@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from trade_hub.models import Trade, Item, UserItem
@@ -22,10 +23,10 @@ def market(request):
             price = float(request.POST.get('price', None))
 
             if price is None or price <= 0:
-                print('Price should be greater than 0')
+                messages.info(request, 'Price should be greater than 0')
                 return redirect('market')
             if not user_item_id:
-                print('Please choose item')
+                messages.info(request, 'Please choose item')
                 return redirect('market')
                 
 
@@ -33,7 +34,7 @@ def market(request):
 
             item_in_trade = user_item.tradeitem_set.filter(Q(trade__status=Trade.NEW) | Q(trade__status=Trade.REVIEWING)).exists()
             if item_in_trade:
-                print('In order to put this item up for sale, it must not be in trade')
+                messages.error(request, 'In order to put this item up for sale, it must not be in trade')
                 return redirect('market')
 
             market_item = MarketItem.objects.create(user_item=user_item, price=price, seller=profile)
@@ -46,12 +47,14 @@ def market(request):
             total_value_with_disc = total_value - (Decimal(profile.discount/100)*total_value)
 
             if profile.balance < total_value_with_disc:
-                print('Insufficient Balance')
+                messages.error(request, 'Insufficient Balance')
                 return redirect('market')
 
+
+            item_already_sold = False
             for market_item in buy_items:
                 if market_item.status != MarketItem.NEW:
-                    print(f"{market_item.user_item.item} - already sold")
+                    item_already_sold = True
 
                 seller = market_item.user_item.user
                 user_item = market_item.user_item
@@ -70,10 +73,10 @@ def market(request):
                 profile.save()
                 market_item.save()
 
+            if item_already_sold:
+                messages.error(request, 'Some items have already been sold')
+
             revise_profile_discount(profile)
-
-            print('Success')
-
 
         return redirect('market')
     else:
@@ -101,6 +104,5 @@ def delist_item(request, pk):
     if market_item.status == MarketItem.NEW:
         market_item.status = MarketItem.CANCELED
         market_item.save()
-        print('Success')
 
     return redirect('history')

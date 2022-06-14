@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+@import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css);
+
 :root {
 	--primary: #00897b;
 }
@@ -176,32 +179,6 @@ nav {
 	padding-right: 1rem;
 }
 
-/* .create-trade-offer-block {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.create-offer-blocks{
-	max-width: 40%;
-} */
-
-/* label:before {
-	content: url("https://cdn1.iconfinder.com/data/icons/windows8_icons_iconpharm/26/unchecked_checkbox.png");
-	position: absolute;
-	z-index: 100;
-  }
-  :checked+label:before {
-	content: url("https://cdn1.iconfinder.com/data/icons/windows8_icons_iconpharm/26/checked_checkbox.png");
-  }
-  input[type=checkbox] {
-	display: none;
-  }
-
-  label {
-	margin: 10px;
-  } */
-
 .create-trade-offer-block input[type="checkbox"][class="item-checkbox"] {
 	display: none;
 }
@@ -244,12 +221,6 @@ nav {
 	transform-origin: 50% 50%;
 }
 
-.create-trade-offer-block :checked + label::before {
-	/* content: "✓";
-	background-color: var(--primary);
-	transform: scale(1); */
-}
-
 .create-trade-offer-block :checked + label img {
 	transform: scale(0.8);
 	box-shadow: 0 0 20px var(--primary);
@@ -267,7 +238,6 @@ nav {
 	border-bottom: none;
 }
 
-/* ############################################ */
 .profile-container {
 	text-align: center;
 	padding: 20px;
@@ -338,13 +308,10 @@ nav {
 	font-size: 16px;
 	box-sizing: border-box;
 }
-/* ############################################ */
 
 .form-error {
 	padding-left: 1rem;
 }
-
-/* ############################################ */
 
 .avatar {
 	position: relative;
@@ -423,10 +390,8 @@ nav {
 }
 
 .market-block label {
-	/* padding: 10px; */
 	display: block;
 	position: relative;
-	/* margin: 10px; */
 	cursor: pointer;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -511,25 +476,25 @@ nav {
 	margin-right: 1rem;
 }
 
-.market-history{
+.market-history {
 	margin-left: 1rem;
 }
 
 main.container-fluid.history-main {
-    padding-top: 5vh;
+	padding-top: 5vh;
 }
 
-.market-item{
+.market-item {
 	display: flex;
 }
 
-.market-item-img-block{
+.market-item-img-block {
 	margin-right: 1rem;
 }
 
-.market-items-actions{
+.market-items-actions {
 	text-align: end;
-	
+
 	margin-top: 5px;
 }
 
@@ -537,7 +502,85 @@ main.container-fluid.history-main {
 	padding: 0.3rem;
 }
 
-
-.market-item-info p{
+.market-item-info p {
 	margin-bottom: 0;
+}
+
+.alert {
+	position: absolute;
+	right: 1%;
+	top: 10%;
+}
+
+.alert .inner {
+	display: block;
+	padding: 6px;
+	margin: 6px;
+	border-radius: 3px;
+	border: 1px solid rgb(180, 180, 180);
+	background-color: rgb(212, 212, 212);
+}
+
+.alert .close {
+	float: right;
+	margin: 3px 12px 0px 0px;
+	cursor: pointer;
+}
+
+.alert .inner,
+.alert .close {
+	color: rgb(88, 88, 88);
+}
+
+.alert input {
+	display: none;
+}
+
+.alert input:checked ~ * {
+	animation-name: dismiss, hide;
+	animation-duration: 300ms;
+	animation-iteration-count: 1;
+	animation-timing-function: ease;
+	animation-fill-mode: forwards;
+	animation-delay: 0s, 100ms;
+}
+
+.alert.error .inner {
+	border: 1px solid rgb(238, 211, 215);
+	background-color: rgb(242, 222, 222);
+}
+
+.alert.error .inner,
+.alert.error .close {
+	color: rgb(185, 74, 72);
+}
+
+.alert.success .inner {
+	border: 1px solid rgb(214, 233, 198);
+	background-color: rgb(223, 240, 216);
+}
+
+.alert.success .inner,
+.alert.success .close {
+	color: rgb(70, 136, 71);
+}
+
+.alert.info .inner {
+	border: 1px solid rgb(188, 232, 241);
+	background-color: rgb(217, 237, 247);
+}
+
+.alert.info .inner,
+.alert.info .close {
+	color: rgb(58, 135, 173);
+}
+
+.alert.warning .inner {
+	border: 1px solid rgb(251, 238, 213);
+	background-color: rgb(252, 248, 227);
+}
+
+.alert.warning .inner,
+.alert.warning .close {
+	color: rgb(192, 152, 83);
 }

@@ -3,6 +3,7 @@ from users.forms import CustomUserCreationForm, CustomUserLoginForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.db.models import Q
 
 from trade_hub.models import Trade
@@ -70,7 +71,7 @@ def login_user(request):
             try:
                 user = User.objects.get(username=username)
             except:
-                print('User does not exists')
+                messages.error(request, 'User does not exists')
 
             user = authenticate(request, username=username, password=password)
 
@@ -78,9 +79,9 @@ def login_user(request):
                 login(request, user)
                 return redirect(request.GET['next'] if 'next' in request.GET else 'trade-hub')
             else:
-                print('Username OR password is incorrect')
+                messages.error(request, 'Username OR password is incorrect')
         else:
-            print('Username OR password is incorrect')
+            messages.error(request, 'Username OR password is incorrect')
     else:
         form = CustomUserLoginForm()
 
