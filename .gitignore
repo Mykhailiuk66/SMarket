@@ -3,10 +3,7 @@
 *.pot
 *.pyc
 __pycache__
-db.sqlite3
 media
-static/images/items/*
-static/images/profiles/*
 
 # Backup files # 
 *.bak 
