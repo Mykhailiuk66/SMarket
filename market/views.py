@@ -80,6 +80,7 @@ def market(request):
 
         return redirect('market')
     else:
+        form_inputs = {}
         exteriors = ItemExterior.objects.all()
         qualities = ItemQuality.objects.all()
         new_user_market_items = MarketItem.objects.filter(user_item__user=profile, status=MarketItem.NEW)
@@ -89,11 +90,14 @@ def market(request):
         if request.GET.get('exteriors-select'):
             exteriors_select = request.GET.getlist('exteriors-select')
             items_fot_sale = items_fot_sale.filter(user_item__item__exterior__id__in=exteriors_select)
+            form_inputs['exteriors_select'] = exteriors_select
         if request.GET.get('qualities-select'):
             qualities_select = request.GET.getlist('qualities-select')
             items_fot_sale = items_fot_sale.filter(user_item__item__quality__id__in=qualities_select)
+            form_inputs['qualities_select'] = qualities_select
         if request.GET.get('stattrak'):
             items_fot_sale = items_fot_sale.filter(user_item__item__stattrak=True)
+            form_inputs['stattrak'] = True
 
         
         additional_blocks_user_items = range(3 - (user_items.count() % 3))
@@ -104,6 +108,7 @@ def market(request):
         'exteriors': exteriors,
         'qualities': qualities,
         'user_items': user_items,
+        'form_inputs': form_inputs,
         'items_fot_sale': items_fot_sale,
         'additional_blocks_user_items': additional_blocks_user_items,
         'additional_blocks_items': additional_blocks_items,
