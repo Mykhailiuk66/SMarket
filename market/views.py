@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from trade_hub.models import Trade, Item, UserItem
+from trade_hub.models import Trade, Item, UserItem, ItemExterior, ItemQuality
 from .models import MarketItem
 
 from .utils import revise_profile_discount
@@ -80,15 +80,29 @@ def market(request):
 
         return redirect('market')
     else:
+        exteriors = ItemExterior.objects.all()
+        qualities = ItemQuality.objects.all()
         new_user_market_items = MarketItem.objects.filter(user_item__user=profile, status=MarketItem.NEW)
-
         user_items = UserItem.objects.filter(user=profile).exclude(id__in=new_user_market_items.values_list('user_item__id', flat=True))
+        
         items_fot_sale = MarketItem.objects.filter(status=MarketItem.NEW).exclude(seller=profile)
+        if request.GET.get('exteriors-select'):
+            exteriors_select = request.GET.getlist('exteriors-select')
+            items_fot_sale = items_fot_sale.filter(user_item__item__exterior__id__in=exteriors_select)
+        if request.GET.get('qualities-select'):
+            qualities_select = request.GET.getlist('qualities-select')
+            items_fot_sale = items_fot_sale.filter(user_item__item__quality__id__in=qualities_select)
+        if request.GET.get('stattrak'):
+            items_fot_sale = items_fot_sale.filter(user_item__item__stattrak=True)
+
+        
         additional_blocks_user_items = range(3 - (user_items.count() % 3))
         additional_blocks_items = range(9 - (items_fot_sale.count() % 9))
 
 
     context = {
+        'exteriors': exteriors,
+        'qualities': qualities,
         'user_items': user_items,
         'items_fot_sale': items_fot_sale,
         'additional_blocks_user_items': additional_blocks_user_items,
