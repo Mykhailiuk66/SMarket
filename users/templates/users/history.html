@@ -170,7 +170,7 @@
                         </summary>
                         <div class="item-history-block">
                             <div>
-                                        {% if market_item.seller == request.user.profile %}
+                                        {% if market_item.seller == request.user.profile or market_item.buyer == request.user.profile %}
                                             <div class="market-item">
                                                 <div class="market-item-img-block">
                                                     <img
