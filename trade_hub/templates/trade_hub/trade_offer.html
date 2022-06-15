@@ -28,7 +28,7 @@
 										<input type="checkbox" id="{{user_item.id}}" name="user_items" value="{{user_item.id}}" class="item-checkbox"/>
 										<label for="{{user_item.id}}">
 											<img
-												src="{{ user_item.item.image.url }}"
+												src="{% static user_item.item.image.url %}"
 												alt=""
 												class="offer-middle-img"
 												style="border-color: {{ user_item.item.quality.color_hex }}"
@@ -70,7 +70,7 @@
 									<input type="checkbox" id="{{item.id}}" name="second_party_items" value="{{item.id}}" class="item-checkbox"/>
 									<label for="{{item.id}}">
 										<img
-											src="{{ item.image.url }}"
+											src="{% static item.image.url %}"
 											alt=""
 											class="offer-middle-img"
 											style="border-color: {{ item.quality.color_hex }}"
