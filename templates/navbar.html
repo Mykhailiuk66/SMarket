@@ -2,9 +2,7 @@
 <nav class="container-fluid">
 	<ul>
 		<li>
-			<a href="{% url 'trade-hub' %}" class="contrast"
-				><strong>ScamMarket</strong></a
-			>
+			<a href="{% url 'trade-hub' %}" class="contrast logo">SMarket</a>
 		</li>
 	</ul>
 	<ul>
@@ -21,46 +19,50 @@
 	</ul>
 	<ul>
 		{% if request.user.is_authenticated %}
-			<li>
-				<div class="balance green-text">
-					${{ request.user.profile.balance  }}
-				</div>
-			</li>
-			<li>
-				<details role="list" dir="rtl">
-					<summary aria-haspopup="listbox" role="link" class="secondary">
-						{{ request.user.profile.username }}
-					</summary>
-					<ul role="listbox">
-						<li>
-							<a href="{% url 'profile' %}" data-theme-switcher="auto"
-								>Profile</a
-							>
-						</li>
-						<li>
-							<a href="{% url 'history' %}" data-theme-switcher="auto"
-								>History</a
-							>
-						</li>
-						
-						{% for group in  request.user.groups.all %}
-							{%  if 'guarantor' == group.name %}
-								<li>
-									<a href="{% url 'guarantor-hub' %}" data-theme-switcher="auto"
-										>Guarantor Hub</a
-									>
-								</li>
-							{% endif %}
-						{% endfor %}
+		<li>
+			<div class="balance">${{ request.user.profile.balance }}</div>
+		</li>
+		<li>
+			<details role="list" dir="rtl">
+				<summary aria-haspopup="listbox" role="link" class="secondary user-settings">
+					<i class="fa-regular fa-user user-icon"></i>
+				</summary>
+				<ul role="listbox">
+					<li>
+						<a href="{% url 'profile' %}" data-theme-switcher="auto"
+							>Profile</a
+						>
+					</li>
+					<li>
+						<a href="{% url 'history' %}" data-theme-switcher="auto"
+							>History</a
+						>
+					</li>
 
-						<li><a href="{% url 'logout' %}" data-theme-switcher="dark">Logout</a></li>
-					</ul>
-				</details>
-			</li>
+					{% for group in request.user.groups.all %} 
+						{% if 'guarantor' == group.name %}
+						<li>
+							<a
+								href="{% url 'guarantor-hub' %}"
+								data-theme-switcher="auto"
+								>Guarantor Hub</a
+							>
+						</li>
+						{% endif %} 
+					{% endfor %}
+
+					<li>
+						<a href="{% url 'logout' %}" data-theme-switcher="dark"
+							>Logout</a
+						>
+					</li>
+				</ul>
+			</details>
+		</li>
 		{% else %}
-			<li>
-				<a href="{% url 'login' %}" data-theme-switcher="auto">Login</a>
-			</li>
+		<li>
+			<a href="{% url 'login' %}" data-theme-switcher="auto">Login</a>
+		</li>
 		{% endif %}
 	</ul>
 </nav>

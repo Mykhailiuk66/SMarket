@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
 @import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css);
+@import url("https://fonts.cdnfonts.com/css/stereotones");
 
 :root {
 	--primary: #00897b;
@@ -42,6 +43,17 @@
 	--switch-color: var(--primary-inverse);
 	--switch-checked-background-color: var(--primary);
 }
+/* ------------------------------------------------------- */
+
+.logo {
+	font-family: "Stereotones", sans-serif;
+	color: var(--primary);
+}
+
+.logo:focus,
+.logo:active {
+	background-color: transparent !important;
+}
 
 .nav-tabs {
 	margin-left: 0.2rem;
@@ -58,6 +70,21 @@ nav {
 
 .nav-tabs:hover {
 	transform: scale(0.95);
+}
+
+.user-icon {
+	font-size: 1.5rem;
+	display: block;
+	margin: 0 auto;
+}
+
+summary.user-settings::after {
+	block-size: auto;
+}
+
+summary.user-settings:focus,
+summary.user-settings:active {
+	background-color: transparent !important;
 }
 
 .tradehub-headline > h1 {
@@ -456,10 +483,11 @@ nav {
 .balance {
 	background-color: #141e26;
 	border: 1px solid;
-	border-radius: 34%;
+	border-radius: 10%;
 	padding: 4px;
 	padding-right: 10px;
 	padding-left: 10px;
+	/* color: white; */
 }
 
 .history-blocks {
@@ -592,10 +620,10 @@ main.container-fluid.history-main {
 	color: rgb(192, 152, 83);
 }
 
-.password-field{
+.password-field {
 	display: flex;
 }
 
-.password-field button{
+.password-field button {
 	width: min-content;
 }
