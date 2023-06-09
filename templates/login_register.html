@@ -1,0 +1,67 @@
+{% extends 'main.html' %}
+
+{% block title %}
+	<title>{{action}}</title>
+{% endblock title %}
+
+{% block content %}
+{% if action == 'Sign In' %}
+	<main class="container form-main">
+		<article class="form-container">
+			<div>
+				<h1>{{action}}</h1>
+			<form method="POST">
+				{% csrf_token %}
+				{% for field in form %}
+					{{field}}
+                    {% for error in field.errors %}
+                        <p class="form-error">{{error}}</p>
+                    {% endfor %}
+				{% endfor %}
+                {% for error in form.non_field_errors %}
+                    <p class="form-error">{{error}}</p>
+                {% endfor %}
+                <hr>
+                <div class="login-hints">
+                    <span>
+                        Don’t have an Account?
+	    			    <a href="{% url 'register' %}"> Sign Up</a>
+                    </span>
+                    <br>
+                    <span>
+                        <a href="/">Forgot password?</a>
+                    </span>
+                </div>
+				<br><br>
+				<button type="submit" class="contrast">{{action}}</button>
+			</form>
+			</div>
+		</article>
+	</main>
+{% else %}
+    <main class="container form-main">
+        <article class="form-container">
+            <div>
+                <h1>{{action}}</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    {{field}}
+
+                    {% for error in field.errors %}
+                        <p class="form-error">{{error}}</p>
+                    {% endfor %}
+
+                {% endfor %}
+                <hr>
+                Already have an Account?
+                <a href="{% url 'login' %}">Sign In</a>
+                <br><br>
+                <button type="submit" class="contrast">{{action}}</button>
+            </form>
+            </div>
+        </article>
+    </main>
+{% endif %}
+
+{% endblock content %}

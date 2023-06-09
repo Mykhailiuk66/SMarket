@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% block title %}
+    
+    {% endblock title %}
+    <title>Trade Hub</title>
+
+    <meta name="description" content="A minimalist layout for Login pages. Built with Pico CSS." />
+
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+
+    <!-- <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+/> -->
+
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.colors.min.css"
+    />
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+
+    <script src="https://kit.fontawesome.com/2e3e4fe502.js" crossorigin="anonymous"></script>
+
+  </head>
+
+  <body>
+    {% include 'navbar.html' %}
+
+    {% block content %}
+
+    {% endblock content %}
+
+
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'main.html' %} {% block title %}
+<title>Profile</title>
+{% endblock title %} {% block content %}
+
+<!-- https://picsum.photos/300 -->
+
+<div class="profile-container">
+	<div class="avatar">
+		<img src="https://picsum.photos/300" alt="Avatar" />
+	</div>
+	<h2 class="nickname">John Doe</h2>
+	<div class="info">
+		<p id="steam-id">Steam ID64: 76561198196997726</p>
+		<p>Total Spend: $500</p>
+		<p>Discount: 10%</p>
+	</div>
+	<div class="input-group">
+        <form action="">
+            <label for="trade-link">
+                Trade Link: 
+                <a href="#" id="get-link">(Get Link)</a>
+    
+            </label>
+            <input
+                type="text"
+                id="trade-link"
+                placeholder="Your tradelink"
+            />
+        </form>
+	</div>
+    <a href="{% url 'history' %}" class="history-button" role="button">View History</a><br>
+	<button class="logout-button">Logout</button>
+</div>
+
+{% endblock content %}
