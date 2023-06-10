@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+
+
+{% block title %}
+	<title>Reset Password</title>
+{% endblock title %}
+
+{% block content %}
+
+<main class="container form-main">
+            
+		<article class="form-container">
+
+            <h3>Enter new password</h3>
+
+            <h6>Please enter your new password twice so we can 
+                verify you typed it in correctly.
+            </h6>
+
+            <form class="form" method="POST">
+                {% csrf_token %}
+
+                {{form.as_p}}
+
+                <input type="submit" value="Submit" />
+            </form>
+
+		</article>
+        
+</main>
+
+{% endblock content %}

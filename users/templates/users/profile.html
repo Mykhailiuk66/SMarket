@@ -1,0 +1,67 @@
+{% extends 'main.html' %} {% block title %}
+<title>Profile</title>
+{% endblock title %} {% block content %}
+
+<!-- https://picsum.photos/300 -->
+
+<div class="profile-container">
+	<div class="avatar">
+		<label for="avatar-input">
+			<div>
+				<img src="{{profile.image.url}}" alt="Avatar" id="img-avatar" />
+			</div>
+			<div class="overlay"></div>
+			<div class="button">
+				<span>
+					<form
+						method="POST"
+						id="img-form"
+						enctype="multipart/form-data"
+					>
+						{% csrf_token %}
+						<input
+							type="file"
+							id="avatar-input"
+							name="avatar-input"
+							style="visibility: hidden"
+						/>
+						<i class="fa-solid fa-camera"></i>
+					</form>
+				</span>
+			</div>
+		</label>
+	</div>
+	<h2 class="nickname green-text">{{profile.username}}</h2>
+	<div class="info">
+		<!-- <p id="steam-id">Steam ID64: 76561198196997726</p> -->
+		<p>Total Spend: ${{profile.total_trade_amount}}</p>
+		<p>Discount: {{profile.discount}}%</p>
+	</div>
+	<div class="input-group">
+		<form method="POST">
+			{% csrf_token %}
+			<label for="trade-link">
+				Trade Link:
+				<a
+					href="https://steamcommunity.com/id/me/tradeoffers/privacy#trade_offer_access_url"
+					target="”_blank”"
+					id="get-link"
+					>(Get Link)</a
+				>
+			</label>
+			<input
+				type="text"
+				id="trade-link"
+				name="trade-link"
+				placeholder="Your tradelink"
+				value="{{profile.trade_url}}"
+			/>
+		</form>
+	</div>
+	<a href="{% url 'history' %}" class="history-button" role="button"
+		>View History</a
+	><br />
+	<a href="{% url 'logout' %}" class="logout-button" role="button">Logout</a>
+</div>
+
+{% endblock content %}
