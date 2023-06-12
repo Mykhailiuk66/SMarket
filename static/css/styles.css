@@ -80,10 +80,12 @@ nav {
 
 .offer-right {
 	max-width: 40%;
+	width: -webkit-fill-available;
 }
 
 .offer-left {
 	max-width: 40%;
+	width: -webkit-fill-available;
 }
 
 .offer-small-img {
@@ -105,6 +107,8 @@ nav {
 
 .offer-actions {
 	text-align: end;
+
+	margin-top: 1rem;
 }
 
 .offer-actions > a {
@@ -196,7 +200,7 @@ nav {
 	margin: 10px;
   } */
 
-.create-trade-offer-block input[type="checkbox"][id^="cb"] {
+.create-trade-offer-block input[type="checkbox"][class="item-checkbox"] {
 	display: none;
 }
 
