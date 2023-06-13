@@ -3,22 +3,41 @@ from trade_hub.models import Trade, UserItem, Item, TradeItem
 from django.contrib.auth.decorators import login_required
 import math
 
+from .utils import get_items_to_trade
+
 # Create your views here.
 
 def trade_hub(request):
     trades = Trade.objects.filter(status=Trade.NEW)
+    guarantor = request.user.groups.filter(name="guarantor").exists()
 
     context = {
-        'trades': trades
+        'trades': trades,
+        'guarantor': guarantor,
     }
     return render(request, 'trade_hub/trade_hub.html', context=context)
 
 
 @login_required(login_url='login')
+def guarantor_hub(request):
+    trades = Trade.objects.filter(status=Trade.REVIEWING)
+    guarantor = request.user.groups.filter(name="guarantor").exists()
+    
+    if not guarantor:
+        print('Access Denied')
+        return redirect('trade-hub')
+
+    context = {
+        'trades': trades,
+    }
+    return render(request, 'trade_hub/guarantor_hub.html', context=context)
+
+
+@login_required(login_url='login')
 def create_trade_offer(request):
+    profile = request.user.profile
 
     if request.method == 'POST':
-        profile = request.user.profile
         user_items_chosen = request.POST.getlist('user_items')
         second_party_items_chosen = request.POST.getlist('second_party_items')
 
@@ -38,7 +57,7 @@ def create_trade_offer(request):
 
         return redirect('trade-hub')
     else:
-        user_items = UserItem.objects.all()
+        user_items = UserItem.objects.filter(user=profile)
         items = Item.objects.all()
         additional_blocks_user_items = range(6 - (user_items.count() % 6))
         additional_blocks_items = range(6 - (items.count() % 6))
@@ -53,9 +72,72 @@ def create_trade_offer(request):
     return render(request, 'trade_hub/trade_offer.html', context=context)
 
 
-@login_required(login_url='login')
-def history(request):
 
-    return render(request, 'history.html')
+@login_required(login_url='login')
+def accept_trade(request, pk):
+    user = request.user
+    profile = user.profile
+    trade = Trade.objects.get(id=pk)
+
+     
+    if user.groups.filter(name="guarantor").exists() and trade.creator != profile and trade.second_party != profile:
+        if not trade.second_party:
+            print('Error')
+            return redirect('trade-hub')
+        
+        creator = trade.creator
+        second_party = trade.second_party
+        trade_items = trade.tradeitem_set.all()
+        for trade_item in trade_items:
+            user_item = trade_item.user_item
+            if user_item.user == creator:
+                user_item.user = second_party
+            else:
+                user_item.user = creator 
+            
+            user_item.save()
+        
+        trade.guarantor = profile
+        trade.status = Trade.SUCCESS
+        trade.save()
+        return redirect('guarantor-hub')
+    elif profile != trade.creator:
+        trade.second_party = profile
+        trade_items = trade.tradeitem_set.filter(user_item=None)
+        
+        user_trade_items = get_items_to_trade(trade_items, profile)
+        if user_trade_items:
+            for trade_item, user_item in zip(trade_items, user_trade_items):
+                trade_item.user_item = user_item
+                trade_item.user = profile
+                trade_item.item = None
+                trade_item.save()
+            trade.status = Trade.REVIEWING
+            trade.save()
+        else:
+            print("You do not have all the items needed to trade")
+            return redirect('trade-hub')
+        
+
+
+    return redirect('history')
+
+
+@login_required(login_url='login')
+def cancel_trade(request, pk):
+    user = request.user
+    profile = user.profile
+    trade = Trade.objects.get(id=pk)
+
+    if user.groups.filter(name="guarantor").exists():
+        trade.guarantor = profile
+        trade.status = Trade.DECLINED
+        trade.save()
+        return redirect('guarantor-hub')
+    elif profile == trade.creator or profile == trade.second_party:
+        trade.status = Trade.CANCELED
+        trade.save()
+
+    return redirect('history')
 
 

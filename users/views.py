@@ -3,8 +3,10 @@ from users.forms import CustomUserCreationForm, CustomUserLoginForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 
-# Create your views here.
+from trade_hub.models import Trade
+
 
 @login_required(login_url='login')
 def profile(request):
@@ -26,6 +28,24 @@ def profile(request):
         'profile': profile
     }
     return render(request, 'users/profile.html', context=context)
+
+
+@login_required(login_url='login')
+def history(request):
+    profile = request.user.profile
+    trades = Trade.objects.filter(Q(creator=profile) | Q(second_party=profile) | Q(guarantor=profile))
+
+    context = {
+        'trades': trades
+    }
+    return render(request, 'users/history.html', context=context)
+
+
+@login_required(login_url='login')
+def update_inventory(request):
+    profile = request.user.profile
+    
+    return redirect(request.GET['next'] if 'next' in request.GET else 'profile')
 
 
 def login_user(request):
