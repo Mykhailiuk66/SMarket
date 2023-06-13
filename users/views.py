@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 
 from trade_hub.models import Trade
+from .utils import generate_random_inventory
 
 
 @login_required(login_url='login')
@@ -45,6 +46,8 @@ def history(request):
 def update_inventory(request):
     profile = request.user.profile
     
+    generate_random_inventory(profile)
+
     return redirect(request.GET['next'] if 'next' in request.GET else 'profile')
 
 
