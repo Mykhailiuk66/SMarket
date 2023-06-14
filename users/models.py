@@ -13,8 +13,18 @@ class Profile(models.Model):
     registation_date = models.DateTimeField(auto_now_add=True)
     steam_id = models.PositiveBigIntegerField(null=True, blank=True)
     trade_url = models.CharField(max_length=500, null=True, blank=True)
-    discount = models.IntegerField(default=0)
+    balance = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True, default=0)
+    discount = models.FloatField(default=0)
     total_trade_amount = models.FloatField(default=0.0)
 
     def __str__(self):
         return f"{self.username} - {self.email}"
+    
+
+class Discount(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    min_trade_amount = models.FloatField()
+    discount = models.FloatField()
+    
+    def __str__(self):
+        return f"{self.min_trade_amount} - {self.discount}"

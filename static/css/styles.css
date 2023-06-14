@@ -166,6 +166,8 @@ nav {
 .items-div {
 	overflow: auto;
 	max-height: 85vh;
+
+	display: contents;
 }
 
 .user-inventory-actions {
@@ -386,4 +388,107 @@ nav {
 
 .avatar:hover .button {
 	opacity: 1;
+}
+
+.market-block {
+	display: grid;
+	grid-template-columns: 3fr 7fr;
+	grid-template-rows: 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 0px;
+
+	align-items: start;
+	justify-items: stretch;
+	margin-top: 1rem;
+}
+
+.market-left{
+	border-right: 1px solid var(--primary);
+}
+
+
+.market-block table {
+	table-layout: fixed;
+}
+
+.market-block table td {
+	text-align: center;
+}
+
+
+.market-block input[type="radio"][class="item-radio"] {
+	display: none;
+}
+
+.market-block input[type="checkbox"][class="item-checkbox"] {
+	display: none;
+}
+
+.market-block label {
+	/* padding: 10px; */
+	display: block;
+	position: relative;
+	/* margin: 10px; */
+	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.market-block label::before {
+	background-color: var(--primary);
+	color: white;
+	content: " ";
+	display: block;
+	border-radius: 50%;
+	border: 1px solid var(--primary);
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	line-height: 28px;
+	transition-duration: 0.4s;
+	transform: scale(0);
+	z-index: 10;
+}
+
+.market-block label img {
+	transition-duration: 0.2s;
+	transform-origin: 50% 50%;
+}
+
+
+.market-block :checked + label img {
+	transform: scale(0.8);
+	box-shadow: 0 0 20px var(--primary);
+	z-index: -1;
+}
+
+.market-buy-btn {
+    max-width: max-content;
+    margin-left: auto;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.sell-input-block{
+	margin-right: 1rem;
+}
+
+.market-item-label{
+	min-width: min-content;
+}
+
+.balance{
+    background-color: #141e26;
+    border: 1px solid;
+    border-radius: 34%;
+    padding: 4px;
+    padding-right: 10px;
+    padding-left: 10px;
 }

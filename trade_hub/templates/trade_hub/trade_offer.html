@@ -21,8 +21,8 @@
 					</div>
 					<table>
 						<tbody>
+							<tr>
 							{% for user_item in user_items %}
-									{% if forloop.counter|divisibleby:"7" %} <tr> {%endif %}
 									<td scope="row">
 										<div data-tooltip="{% if user_item.item.stattrak %} StatTrak™ {% endif %}{{ user_item.item.name }} ({{user_item.item.exterior.name}})" data-placement="{% if forloop.counter|divisibleby:'7' or forloop.first%}right{% elif forloop.counter|divisibleby:'6' %}left{% else %}bottom{% endif %}" >
 										<input type="checkbox" id="{{user_item.id}}" name="user_items" value="{{user_item.id}}" class="item-checkbox"/>
@@ -48,7 +48,7 @@
 									</td>
 								{% endfor %}
 
-							{% if additional_blocks_items and forloop.counter|divisibleby:"6" %} </tr> {%endif %}
+							{% if additional_blocks_items and forloop.counter|divisibleby:"6" %} </tr><tr> {%endif %}
 
 						</tbody>
 					</table>
@@ -63,8 +63,8 @@
 				<div class="items-div">
 					<table>
 						<tbody>
+							<tr>
 							{% for item in items %}
-								{% if forloop.counter|divisibleby:"7" %} <tr> {% endif %}
 								<td scope="row">
 									<div data-tooltip="{% if item.stattrak %} StatTrak™ {% endif %}{{ item.name }} ({{item.exterior.name}})" data-placement="{% if forloop.counter|divisibleby:'7' or forloop.first%}right{% elif forloop.counter|divisibleby:'6' %}left{% else %}bottom{% endif %}" >
 									<input type="checkbox" id="{{item.id}}" name="second_party_items" value="{{item.id}}" class="item-checkbox"/>
@@ -90,7 +90,7 @@
 								</td>
 							{% endfor %}
 
-							{% if additional_blocks_items and forloop.counter|divisibleby:"6" %} </tr> {%endif %}
+							{% if additional_blocks_items and forloop.counter|divisibleby:"6" %} </tr><tr> {%endif %}
 						</tbody>
 					</table>
 				</div>
