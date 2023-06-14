@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 
 from trade_hub.models import Trade
+from market.models import MarketItem
 from .utils import generate_random_inventory
 
 
@@ -35,9 +36,11 @@ def profile(request):
 def history(request):
     profile = request.user.profile
     trades = Trade.objects.filter(Q(creator=profile) | Q(second_party=profile) | Q(guarantor=profile))
+    market_items = MarketItem.objects.filter(Q(buyer=profile) | Q(seller=profile)).order_by('-created')
 
     context = {
-        'trades': trades
+        'trades': trades,
+        'market_items': market_items,
     }
     return render(request, 'users/history.html', context=context)
 

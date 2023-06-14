@@ -6,64 +6,34 @@
 
 
 {% block content %}
-<main class="container">
-    <h1>History</h1>
+<main class="container-fluid history-main">
 
-    <div>
-        <article class="">
-            {% for trade in trades %}
-                <details>
-                    <summary>
-                        <div class="trade-summary-div">
-                            <div>
-                                <span class="green-text">{{trade.creator.username}}</span> 
-                                {% if trade.second_party %} 
-                                    &#8644; <span class="green-text">{{trade.second_party.username}}</span>
-                                {% endif %} 
-                                ({{trade.get_status_display}})
+    <h1 class="main-title">History</h1>
+
+    <div class="history-blocks">
+        <div>
+            <article class="trades-history">
+                <h2>Trades</h2>
+
+                {% for trade in trades %}
+                    <details>
+                        <summary>
+                            <div class="trade-summary-div">
+                                <div>
+                                    <span class="green-text">{{trade.creator.username}}</span> 
+                                    {% if trade.second_party %} 
+                                        &#8644; <span class="green-text">{{trade.second_party.username}}</span>
+                                    {% endif %} 
+                                    ({{trade.get_status_display}})
+                                </div>
                             </div>
-                        </div>
-                    </summary>
-                    <div class="trade-offer-block">
-                        <div class="offer-left">
-                            <table>
-                                <tbody>
-                                    {% for tradeitem in trade.tradeitem_set.all %}
-                                        {% if tradeitem.user == trade.creator %}
-                                            <tr>
-                                                <th scope="row">
-                                                    <img
-                                                        src="{{ tradeitem.user_item.item.image.url }}"
-                                                        alt=""
-                                                        class="offer-small-img"
-                                                        style="border-color: {{ tradeitem.user_item.item.quality.color_hex }}"
-                                                    />
-                                                </th>
-                                                <td>
-                                                    <div>
-                                                        <strong>{% if tradeitem.user_item.item.stattrak %} StatTrak™ {% endif %}{{ tradeitem.user_item.item.name }}</strong>
-                                                        <p>
-                                                            <small> {{tradeitem.user_item.item.exterior.name}} </small>
-                                                        </p>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {% endif %}
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div>
-                            <i class="fa-solid fa-right-left green-text"></i>
-                        </div>
-
-                        <div class="offer-right">
-                            <table>
-                                <tbody>
-                                    {% if trade.second_party %}
+                        </summary>
+                        <div class="trade-offer-block">
+                            <div class="offer-left">
+                                <table>
+                                    <tbody>
                                         {% for tradeitem in trade.tradeitem_set.all %}
-                                            {% if tradeitem.user == trade.second_party %}
+                                            {% if tradeitem.user == trade.creator %}
                                                 <tr>
                                                     <th scope="row">
                                                         <img
@@ -84,153 +54,163 @@
                                                 </tr>
                                             {% endif %}
                                         {% endfor %}
-                                    {% else %}
-                                        {% for tradeitem in trade.tradeitem_set.all %}
-                                            {% if tradeitem.user == None %}
-                                                <tr>
-                                                    <th scope="row">
-                                                        <img
-                                                            src="{{ tradeitem.item.image.url }}"
-                                                            alt=""
-                                                            class="offer-small-img"
-                                                            style="border-color: {{ tradeitem.item.quality.color_hex }}"
-                                                        />
-                                                    </th>
-                                                    <td>
-                                                        <div>
-                                                            <strong>{% if tradeitem.item.stattrak %} StatTrak™ {% endif %}{{ tradeitem.item.name }}</strong>
-                                                            <p>
-                                                                <small> {{tradeitem.item.exterior.name}} </small>
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            {% endif %}
-                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <i class="fa-solid fa-right-left green-text"></i>
+                            </div>
+
+                            <div class="offer-right">
+                                <table>
+                                    <tbody>
+                                        {% if trade.second_party %}
+                                            {% for tradeitem in trade.tradeitem_set.all %}
+                                                {% if tradeitem.user == trade.second_party %}
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <img
+                                                                src="{{ tradeitem.user_item.item.image.url }}"
+                                                                alt=""
+                                                                class="offer-small-img"
+                                                                style="border-color: {{ tradeitem.user_item.item.quality.color_hex }}"
+                                                            />
+                                                        </th>
+                                                        <td>
+                                                            <div>
+                                                                <strong>{% if tradeitem.user_item.item.stattrak %} StatTrak™ {% endif %}{{ tradeitem.user_item.item.name }}</strong>
+                                                                <p>
+                                                                    <small> {{tradeitem.user_item.item.exterior.name}} </small>
+                                                                </p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            {% for tradeitem in trade.tradeitem_set.all %}
+                                                {% if tradeitem.user == None %}
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <img
+                                                                src="{{ tradeitem.item.image.url }}"
+                                                                alt=""
+                                                                class="offer-small-img"
+                                                                style="border-color: {{ tradeitem.item.quality.color_hex }}"
+                                                            />
+                                                        </th>
+                                                        <td>
+                                                            <div>
+                                                                <strong>{% if tradeitem.item.stattrak %} StatTrak™ {% endif %}{{ tradeitem.item.name }}</strong>
+                                                                <p>
+                                                                    <small> {{tradeitem.item.exterior.name}} </small>
+                                                                </p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+
+
+                                        <!-- <tr>
+                                            <th scope="row">
+                                                <img
+                                                    src="https://picsum.photos/100/100"
+                                                    alt=""
+                                                    class="offer-small-img"
+                                                />
+                                            </th>
+                                            <td>
+                                                <div>
+                                                    <strong
+                                                        >StatTrak™ AWP | Containment
+                                                        Breach</strong
+                                                    >
+                                                    <p>
+                                                        <small> Field-Tested </small>
+                                                    </p>
+                                                </div>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="offer-actions">
+                            {% if trade.status == 'RW' %}
+                                    {% if trade.creator == request.user.profile or trade.second_party == request.user.profile %}
+                                        <a href="{% url 'cancel-trade' trade.id %}" role="button" class="contrast outline">Cancel</a>
                                     {% endif %}
-
-
-                                    <!-- <tr>
-                                        <th scope="row">
-                                            <img
-                                                src="https://picsum.photos/100/100"
-                                                alt=""
-                                                class="offer-small-img"
-                                            />
-                                        </th>
-                                        <td>
-                                            <div>
-                                                <strong
-                                                    >StatTrak™ AWP | Containment
-                                                    Breach</strong
-                                                >
-                                                <p>
-                                                    <small> Field-Tested </small>
-                                                </p>
-                                            </div>
-                                        </td>
-                                    </tr> -->
-                                </tbody>
-                            </table>
+                            {% endif %}
                         </div>
-                    </div>
+                    </details>
+                {% endfor %}
+            </article>
+        </div>
+        <div>
+            <article class="market-history">
+                <h2>Market</h2>
 
-                    <div class="offer-actions">
-                        {% if trade.status == 'RW' %}
-                                {% if trade.creator == request.user.profile or trade.second_party == request.user.profile %}
-                                    <a href="{% url 'cancel-trade' trade.id %}" role="button" class="contrast outline">Cancel</a>
+                {% for market_item in market_items %}
+                    <details>
+                        <summary>
+                            <div class="trade-summary-div">
+                                <div>
+                                    <span class="green-text">{% if market_item.user_item.item.stattrak %} StatTrak™ {% endif %}{{ market_item.user_item.item.name }}</span> 
+                                    {% if market_item.buyer == request.user.profile %}
+                                        (Bought)
+                                    {% else %}
+                                        ({{market_item.get_status_display}})
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </summary>
+                        <div class="item-history-block">
+                            <div>
+                                        {% if market_item.seller == request.user.profile %}
+                                            <div class="market-item">
+                                                <div class="market-item-img-block">
+                                                    <img
+                                                        src="{{ market_item.user_item.item.image.url }}"
+                                                        alt=""
+                                                        class="offer-small-img"
+                                                        style="border-color: {{ market_item.user_item.item.quality.color_hex }}"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <div class="market-item-info">
+                                                        <strong>{% if market_item.user_item.item.stattrak %} StatTrak™ {% endif %}{{ market_item.user_item.item.name }}</strong>
+                                                        <p>
+                                                            <small> {{market_item.user_item.item.exterior.name}} </small>
+                                                        </p>
+
+                                                        <p>
+                                                            Price: ${{market_item.price}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                </div>
+                                        {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="market-items-actions">
+                            {% if market_item.status == 'N' %}
+                                {% if market_item.seller == request.user.profile %}
+                                    <a href="{% url 'delist-item' market_item.id %}" role="button" class="contrast outline">Cancel</a>
                                 {% endif %}
-                        {% endif %}
-                    </div>
-                </details>
-            {% endfor %}
-
-                <!-- <details>
-                    <summary>
-                        <div class="trade-summary-div">
-                            <div><span class="green-text">Player 1</span> offer: qwedw23213asdasdew (Success)</div>
+                            {% endif %}
                         </div>
-                    </summary>
-                    <div class="trade-offer-block">
-                        <div class="offer-left">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">
-                                            <img
-                                                src="https://picsum.photos/100/100"
-                                                alt=""
-                                                class="offer-small-img"
-                                                style="border-color: rgb(235, 75, 75)"
-                                            />
-                                        </th>
-                                        <td>
-                                            <div>
-                                                <strong>AWP | Containment Breach</strong>
-                                                <p>
-                                                    <small> Field-Tested </small>
-                                                </p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                            <img
-                                                src="https://picsum.photos/100/100"
-                                                alt=""
-                                                class="offer-small-img"
-                                                style="border-color: rgb(75, 105, 255)"
-                                            />
-                                        </th>
-                                        <td>
-                                            <div>
-                                                <strong
-                                                    >StatTrak™ AWP | Containment Breach
-                                                    dasdasdafds fdsfsdfdadda</strong
-                                                >
-                                                <p>
-                                                    <small> Field-Tested </small>
-                                                </p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-right-left green-text"></i>
-                        </div>
-                        <div class="offer-right">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">
-                                            <img
-                                                src="https://picsum.photos/100/100"
-                                                alt=""
-                                                class="offer-small-img"
-                                            />
-                                        </th>
-                                        <td>
-                                            <div>
-                                                <strong
-                                                    >StatTrak™ AWP | Containment
-                                                    Breach</strong
-                                                >
-                                                <p>
-                                                    <small> Field-Tested </small>
-                                                </p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </details>
-             -->
-        </article>
+                    </details>
+                {% endfor %}
+            </article>
+        </div>
     </div>
+
 </main>
 
 {% endblock content %}
