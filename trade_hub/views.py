@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 import math
 
 from trade_hub.models import Trade, UserItem, Item, TradeItem
@@ -26,7 +27,7 @@ def guarantor_hub(request):
     guarantor = request.user.groups.filter(name="guarantor").exists()
     
     if not guarantor:
-        print('Access Denied')
+        messages.error(request, 'Access Denied')
         return redirect('trade-hub')
 
     context = {
@@ -44,7 +45,8 @@ def create_trade_offer(request):
         second_party_items_chosen = request.POST.getlist('second_party_items')
 
         if not user_items_chosen or not second_party_items_chosen:
-            print("You must select items from both sides to proceed")
+            messages.error(request, 'You must select items from both sides to proceed')
+
             return redirect('create-trade-offer')
 
         trade = Trade.objects.create(creator=profile)
@@ -88,7 +90,7 @@ def accept_trade(request, pk):
      
     if user.groups.filter(name="guarantor").exists() and trade.creator != profile and trade.second_party != profile:
         if not trade.second_party:
-            print('Error')
+            messages.error(request, 'Error')
             return redirect('trade-hub')
         
         creator = trade.creator
@@ -126,7 +128,7 @@ def accept_trade(request, pk):
             trade.status = Trade.REVIEWING
             trade.save()
         else:
-            print("You do not have all the items needed to trade")
+            messages.error(request, 'You do not have all the items needed to trade')
             return redirect('trade-hub')
         
 
