@@ -1,4 +1,5 @@
 {% extends 'main.html' %} 
+{% load static %}
 
 {% block title %}
     <title>Trade Hub</title>
@@ -29,7 +30,7 @@
 									<tr>
 										<th scope="row">
 											<img
-												src="{{ tradeitem.user_item.item.image.url }}"
+												src="{% static tradeitem.user_item.item.image.url %}"
 												alt=""
 												class="offer-small-img"
 												style="border-color: {{ tradeitem.user_item.item.quality.color_hex }}"
@@ -61,7 +62,7 @@
 										<tr>
 											<th scope="row">
 												<img
-													src="{{ tradeitem.user_item.item.image.url }}"
+													src="{% static tradeitem.user_item.item.image.url %}"
 													alt=""
 													class="offer-small-img"
 													style="border-color: {{ tradeitem.user_item.item.quality.color_hex }}"
@@ -84,7 +85,7 @@
 										<tr>
 											<th scope="row">
 												<img
-													src="{{ tradeitem.item.image.url }}"
+													src="{% static tradeitem.item.image.url %}"
 													alt=""
 													class="offer-small-img"
 													style="border-color: {{ tradeitem.item.quality.color_hex }}"

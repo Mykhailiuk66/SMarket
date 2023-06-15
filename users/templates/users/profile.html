@@ -1,4 +1,6 @@
-{% extends 'main.html' %} {% block title %}
+{% extends 'main.html' %} 
+{% load static %}
+{% block title %}
 <title>Profile</title>
 {% endblock title %} {% block content %}
 
@@ -8,7 +10,7 @@
 	<div class="avatar">
 		<label for="avatar-input">
 			<div>
-				<img src="{{profile.image.url}}" alt="Avatar" id="img-avatar" />
+				<img src="{% static profile.image.url %}" alt="Avatar" id="img-avatar" />
 			</div>
 			<div class="overlay"></div>
 			<div class="button">
