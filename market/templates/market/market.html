@@ -72,7 +72,7 @@
 				</form>
 
             </div>
-			<div class="market-right market-blocks">
+			<div class="market-center market-blocks">
 				<form method="POST" name="buy-form">
 					{% csrf_token %}
 
@@ -127,6 +127,48 @@
 					</div>
 				</form>
 			</div>
+			<div class="market-right market-blocks">
+				<h1>Filters</h1>
+				<form method="GET">
+					<input name="filters-form" value="filters-form" type="hidden"/>
+					<div class="filters-div">
+						<div>
+							<fieldset>
+								{% for exterior in exteriors %}
+									<label for="{{exterior.id}}">
+										<input type="checkbox" id="{{exterior.id}}" value="{{exterior.id}}" name="exteriors-select">
+										{{exterior.name}}
+									</label>
+								{% endfor %}
+							</fieldset>
+						</div>
+
+						<div>
+							<fieldset>
+								{% for quality in qualities %}
+									<label for="{{quality.id}}" style="color: {{quality.color_hex}}">
+										<input type="checkbox" id="{{quality.id}}" value="{{quality.id}}" name="qualities-select">
+										{{quality.name}}
+									</label>
+								{% endfor %}
+							</fieldset>
+						</div>
+						<div>
+							<fieldset>
+									<label for="stattrak">
+										<input type="checkbox" id="stattrak" name="stattrak">
+										StatTrak™
+									</label>
+							</fieldset>
+						</div>
+								
+						<button type="submit">
+							Filter
+						</button>
+					</div>
+				</form>
+
+            </div>
 		</div>
 	</form>
 </div>

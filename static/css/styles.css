@@ -359,7 +359,8 @@ nav {
 
 .market-block {
 	display: grid;
-	grid-template-columns: 3fr 7fr;
+	/* grid-template-columns: 3fr 7fr; */
+	grid-template-columns: 3fr 8fr 2fr;
 	grid-template-rows: 1fr;
 	grid-column-gap: 10px;
 	grid-row-gap: 0px;
@@ -371,6 +372,12 @@ nav {
 
 .market-left {
 	border-right: 1px solid var(--primary);
+}
+
+.market-right {
+	border-left: 1px solid var(--primary);
+	padding-left: 1rem;
+	height: -webkit-fill-available;
 }
 
 .market-block table {
