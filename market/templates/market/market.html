@@ -136,7 +136,14 @@
 							<fieldset>
 								{% for exterior in exteriors %}
 									<label for="{{exterior.id}}">
-										<input type="checkbox" id="{{exterior.id}}" value="{{exterior.id}}" name="exteriors-select">
+										<input type="checkbox" 
+												id="{{exterior.id}}" 
+												value="{{exterior.id}}" 
+												name="exteriors-select"
+												{% if exterior.id|stringformat:"s" in form_inputs.exteriors_select %} 
+														checked 
+												{% endif %}
+												>
 										{{exterior.name}}
 									</label>
 								{% endfor %}
@@ -147,7 +154,14 @@
 							<fieldset>
 								{% for quality in qualities %}
 									<label for="{{quality.id}}" style="color: {{quality.color_hex}}">
-										<input type="checkbox" id="{{quality.id}}" value="{{quality.id}}" name="qualities-select">
+										<input type="checkbox" 
+												id="{{quality.id}}" 
+												value="{{quality.id}}" 
+												name="qualities-select"
+												{% if quality.id|stringformat:"s" in form_inputs.qualities_select %} 
+														checked 
+												{% endif %}
+												>
 										{{quality.name}}
 									</label>
 								{% endfor %}
@@ -156,7 +170,13 @@
 						<div>
 							<fieldset>
 									<label for="stattrak">
-										<input type="checkbox" id="stattrak" name="stattrak">
+										<input type="checkbox" 
+												id="stattrak" 
+												name="stattrak"
+												{% if form_inputs.stattrak %} 
+													checked 
+												{% endif %}
+												>
 										StatTrak™
 									</label>
 							</fieldset>

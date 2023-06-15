@@ -591,3 +591,11 @@ main.container-fluid.history-main {
 .alert.warning .close {
 	color: rgb(192, 152, 83);
 }
+
+.password-field{
+	display: flex;
+}
+
+.password-field button{
+	width: min-content;
+}

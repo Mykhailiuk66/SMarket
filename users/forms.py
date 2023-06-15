@@ -11,13 +11,16 @@ from django.utils.translation import gettext_lazy as _
 class CustomUserLoginForm(AuthenticationForm):
     class Meta:
         model = User
-        fields = ['login', 'password']
+        fields = ['username', 'password']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        for name, field in self.fields.items():
-            field.widget.attrs.update({"placeholder": field.label})
+        self.fields["username"].widget.attrs.update({"placeholder": self.fields["username"].label})
+        self.fields["password"].widget.attrs.update({"placeholder": self.fields["password"].label, 'id': 'password-toggle'})
+
+        # for name, field in self.fields.items():
+        #     field.widget.attrs.update({"placeholder": field.label})
 
 
 

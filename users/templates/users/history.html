@@ -112,35 +112,13 @@
                                                 {% endif %}
                                             {% endfor %}
                                         {% endif %}
-
-
-                                        <!-- <tr>
-                                            <th scope="row">
-                                                <img
-                                                    src="https://picsum.photos/100/100"
-                                                    alt=""
-                                                    class="offer-small-img"
-                                                />
-                                            </th>
-                                            <td>
-                                                <div>
-                                                    <strong
-                                                        >StatTrak™ AWP | Containment
-                                                        Breach</strong
-                                                    >
-                                                    <p>
-                                                        <small> Field-Tested </small>
-                                                    </p>
-                                                </div>
-                                            </td>
-                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
                         <div class="offer-actions">
-                            {% if trade.status == 'RW' %}
+                            {% if trade.status == 'RW' or trade.status == 'N' %}
                                     {% if trade.creator == request.user.profile or trade.second_party == request.user.profile %}
                                         <a href="{% url 'cancel-trade' trade.id %}" role="button" class="contrast outline">Cancel</a>
                                     {% endif %}
