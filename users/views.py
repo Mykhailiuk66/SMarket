@@ -1,5 +1,8 @@
+from typing import Any
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from users.forms import CustomUserCreationForm, CustomUserLoginForm
+from django.contrib.auth.views import PasswordResetView
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -7,6 +10,7 @@ from django.contrib import messages
 from django.db.models import Q
 
 from trade_hub.models import Trade
+from users.models import Profile
 from market.models import MarketItem
 from .utils import generate_random_inventory
 
@@ -124,3 +128,14 @@ def register_user(request):
     }
     return render(request, 'users/login_register.html', context=context)
     
+
+
+class CustomPasswordResetView(PasswordResetView):
+    def form_valid(self, form):
+        email = form['email'].value()
+
+        if not Profile.objects.filter(email=email).exists():
+            messages.error(self.request, 'No user exists with such email')    
+            return redirect('login')
+
+        return super().form_valid(form)
