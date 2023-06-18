@@ -19,80 +19,48 @@
 							<i class="fa-solid fa-arrows-rotate"></i>
 						</a>
 					</div>
-					<table>
-						<tbody>
-							<tr>
-							{% for user_item in user_items %}
-									<td scope="row">
-										<div data-tooltip="{% if user_item.item.stattrak %} StatTrak™ {% endif %}{{ user_item.item.name }} ({{user_item.item.exterior.name}})" data-placement="{% if forloop.counter|divisibleby:'7' or forloop.first%}right{% elif forloop.counter|divisibleby:'6' %}left{% else %}bottom{% endif %}" >
-										<input type="checkbox" id="{{user_item.id}}" name="user_items" value="{{user_item.id}}" class="item-checkbox"/>
-										<label for="{{user_item.id}}">
-											<img
-												src="{% static user_item.item.image.url %}"
-												alt=""
-												class="offer-middle-img"
-												style="border-color: {{ user_item.item.quality.color_hex }}"
-											/>
-										</label>
-									</td>
-									{% if forloop.counter|divisibleby:"6" %} </tr> {%endif %}
-								{% endfor %}
-								{% for _ in additional_blocks_user_items %}
-									<td scope="row">
-										<img
-											src="{% static 'images/items/empty_trade_slot.png' %}"
-											alt=""
-											class="offer-middle-img"
-											style="border-color: rgb(71, 71, 71)"
-										/>
-									</td>
-								{% endfor %}
 
-							{% if additional_blocks_items and forloop.counter|divisibleby:"6" %} </tr><tr> {%endif %}
-
-						</tbody>
-					</table>
-				</div>
+          <div class="trade-items">
+            {% for user_item in user_items %}
+            <div data-tooltip="{% if user_item.item.stattrak %} StatTrak™ {% endif %}{{ user_item.item.name }} ({{user_item.item.exterior.name}})" 
+                data-placement="right" >
+              <input type="checkbox" id="{{user_item.id}}" name="user_items" value="{{user_item.id}}" class="item-checkbox"/>
+                  <label for="{{user_item.id}}">
+                    <img
+                      src="{% static user_item.item.image.url %}"
+                      alt=""
+                      class="offer-middle-img"
+                      style="border-color: {{ user_item.item.quality.color_hex }}"
+                    />
+                  </label>
+                </div>
+              {% endfor %}
+          </div>
+        </div>
 			</div>
 			<div class="create-offer-actions">
 				<button type="submit" class="outline">
-					<i class="fa-solid fa-right-left green-text"> OFFER</i>
+					<i class="fa-solid fa-right-left green-text"> </i> OFFER
 				</button>
 			</div>
 			<div class="create-offer-right create-offer-blocks">
 				<div class="items-div">
-					<table>
-						<tbody>
-							<tr>
-							{% for item in items %}
-								<td scope="row">
-									<div data-tooltip="{% if item.stattrak %} StatTrak™ {% endif %}{{ item.name }} ({{item.exterior.name}})" data-placement="{% if forloop.counter|divisibleby:'7' or forloop.first%}right{% elif forloop.counter|divisibleby:'6' %}left{% else %}bottom{% endif %}" >
-									<input type="checkbox" id="{{item.id}}" name="second_party_items" value="{{item.id}}" class="item-checkbox"/>
-									<label for="{{item.id}}">
-										<img
-											src="{% static item.image.url %}"
-											alt=""
-											class="offer-middle-img"
-											style="border-color: {{ item.quality.color_hex }}"
-										/>
-									</label>
-								</td>
-								{% if forloop.counter|divisibleby:"6" %} </tr> {%endif %}
-							{% endfor %}
-							{% for _ in additional_blocks_items %}
-								<td scope="row">
-									<img
-										src="{% static 'images/items/empty_trade_slot.png' %}"
-										alt=""
-										class="offer-middle-img"
-										style="border-color: rgb(71, 71, 71)"
-									/>
-								</td>
-							{% endfor %}
-
-							{% if additional_blocks_items and forloop.counter|divisibleby:"6" %} </tr><tr> {%endif %}
-						</tbody>
-					</table>
+          <div class="trade-items">
+            {% for item in items %}
+              <div data-tooltip="{% if item.stattrak %} StatTrak™ {% endif %}{{ item.name }} ({{item.exterior.name}})" 
+              data-placement="left" >
+                <input type="checkbox" id="{{item.id}}" name="second_party_items" value="{{item.id}}" class="item-checkbox"/>
+                <label for="{{item.id}}">
+                  <img
+                    src="{% static item.image.url %}"
+                    alt=""
+                    class="offer-middle-img"
+                    style="border-color: {{ item.quality.color_hex }}"
+                  />
+                </label>
+              </div>
+              {% endfor %}
+          </div>
 				</div>
 			</div>
 		</div>

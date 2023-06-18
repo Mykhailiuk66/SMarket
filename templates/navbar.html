@@ -12,9 +12,14 @@
 			>
 		</li>
 		<li class="nav-tabs">
-			<a href="{% url 'market' %}"
-				><i class="fa-solid fa-cart-shopping fa-shake"></i> Market</a
-			>
+			<a href="{% url 'market' %}">
+        <i class="fa-solid fa-cart-shopping"></i> Market
+      </a>
+		</li>
+    <li class="nav-tabs">
+			<a href="{% url 'history' %}">
+        <i class="fa-solid fa-clock-rotate-left"></i> My Deals
+      </a>
 		</li>
 	</ul>
 	<ul>
@@ -33,12 +38,6 @@
 							>Profile</a
 						>
 					</li>
-					<li>
-						<a href="{% url 'history' %}" data-theme-switcher="auto"
-							>History</a
-						>
-					</li>
-
 					{% for group in request.user.groups.all %} 
 						{% if 'guarantor' == group.name %}
 						<li>

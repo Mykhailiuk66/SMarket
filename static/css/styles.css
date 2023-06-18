@@ -3,40 +3,40 @@
 @import url("https://fonts.cdnfonts.com/css/stereotones");
 
 :root {
-	--primary: #00897b;
+	--primary: #fb8c00;
 }
 
-/* Teal Light scheme (Default) */
+/* Orange Light scheme (Default) */
 /* Can be forced with data-theme="light" */
 [data-theme="light"],
 :root:not([data-theme="dark"]) {
-	--primary: #00897b;
-	--primary-hover: #00796b;
-	--primary-focus: rgba(0, 137, 123, 0.125);
+	--primary: #fb8c00;
+	--primary-hover: #f57c00;
+	--primary-focus: rgba(251, 140, 0, 0.125);
 	--primary-inverse: #fff;
 }
 
-/* Teal Dark scheme (Auto) */
+/* Orange Dark scheme (Auto) */
 /* Automatically enabled if user has Dark mode enabled */
 @media only screen and (prefers-color-scheme: dark) {
 	:root:not([data-theme]) {
-		--primary: #00897b;
-		--primary-hover: #009688;
-		--primary-focus: rgba(0, 137, 123, 0.25);
+		--primary: #fb8c00;
+		--primary-hover: #ff9800;
+		--primary-focus: rgba(251, 140, 0, 0.25);
 		--primary-inverse: #fff;
 	}
 }
 
-/* Teal Dark scheme (Forced) */
+/* Orange Dark scheme (Forced) */
 /* Enabled if forced with data-theme="dark" */
 [data-theme="dark"] {
-	--primary: #00897b;
-	--primary-hover: #009688;
-	--primary-focus: rgba(0, 137, 123, 0.25);
+	--primary: #fb8c00;
+	--primary-hover: #ff9800;
+	--primary-focus: rgba(251, 140, 0, 0.25);
 	--primary-inverse: #fff;
 }
 
-/* Teal (Common styles) */
+/* Orange (Common styles) */
 :root {
 	--form-element-active-border-color: var(--primary);
 	--form-element-focus-color: var(--primary-focus);
@@ -76,6 +76,7 @@ nav {
 	font-size: 1.5rem;
 	display: block;
 	margin: 0 auto;
+	color: var(--primary);
 }
 
 summary.user-settings::after {
@@ -163,15 +164,25 @@ summary.user-settings:active {
 
 .create-offer-left {
 	grid-area: 1 / 1 / 2 / 2;
+	padding-right: 1rem;
 }
 .create-offer-actions {
 	grid-area: 1 / 2 / 2 / 3;
-
+	padding-left: 1rem;
+	padding-right: 1rem;
 	justify-self: center;
 	align-self: center;
+	border-right: 1px solid var(--primary);
+	border-left: 1px solid var(--primary);
 }
+
+.create-offer-actions > button{
+    margin: auto;
+}
+
 .create-offer-right {
 	grid-area: 1 / 3 / 2 / 4;
+	padding-left: 1rem;
 }
 
 .create-trade-offer-block table {
@@ -189,10 +200,6 @@ summary.user-settings:active {
 	border: 1px solid;
 }
 
-.create-offer-blocks {
-	overflow: hidden;
-}
-
 .items-div {
 	overflow: auto;
 	max-height: 85vh;
@@ -204,6 +211,7 @@ summary.user-settings:active {
 	text-align: end;
 	padding-left: 1rem;
 	padding-right: 1rem;
+	margin-bottom: 1rem;
 }
 
 .create-trade-offer-block input[type="checkbox"][class="item-checkbox"] {
@@ -386,7 +394,6 @@ summary.user-settings:active {
 
 .market-block {
 	display: grid;
-	/* grid-template-columns: 3fr 7fr; */
 	grid-template-columns: 3fr 8fr 2fr;
 	grid-template-rows: 1fr;
 	grid-column-gap: 10px;
@@ -399,12 +406,14 @@ summary.user-settings:active {
 
 .market-left {
 	border-right: 1px solid var(--primary);
+	height: 80vh;
+	padding-right: 0.3rem;
 }
 
 .market-right {
 	border-left: 1px solid var(--primary);
 	padding-left: 1rem;
-	height: -webkit-fill-available;
+	height: 80vh;
 }
 
 .market-block table {
@@ -478,6 +487,7 @@ summary.user-settings:active {
 
 .market-item-label {
 	min-width: min-content;
+	text-align: center;
 }
 
 .balance {
@@ -543,8 +553,10 @@ main.container-fluid.history-main {
 
 .alert {
 	position: absolute;
+	z-index: 999;
 	right: 1%;
 	top: 10%;
+	opacity: 0.95;
 }
 
 .alert .inner {
@@ -581,8 +593,8 @@ main.container-fluid.history-main {
 }
 
 .alert.error .inner {
-	border: 1px solid rgb(238, 211, 215);
-	background-color: rgb(242, 222, 222);
+	border: 1px solid rgb(233, 157, 168);
+	background-color: rgb(240, 169, 169);
 }
 
 .alert.error .inner,
@@ -601,8 +613,8 @@ main.container-fluid.history-main {
 }
 
 .alert.info .inner {
-	border: 1px solid rgb(188, 232, 241);
-	background-color: rgb(217, 237, 247);
+	border: 1px solid rgb(135, 218, 235);
+	background-color: rgb(170, 221, 247);
 }
 
 .alert.info .inner,
@@ -626,4 +638,25 @@ main.container-fluid.history-main {
 
 .password-field button {
 	width: min-content;
+}
+
+.item-price {
+	display: flex;
+	justify-content: center;
+}
+
+.market-items {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(min(5rem, 100%), 1fr));
+}
+
+.trade-items {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(min(5rem, 100%), 1fr));
+}
+
+#password-toggle-btn{
+    height: fit-content;
 }

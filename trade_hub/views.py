@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-import math
 
 from trade_hub.models import Trade, UserItem, Item, TradeItem
 from market.models import MarketItem
@@ -67,15 +66,11 @@ def create_trade_offer(request):
     else:
         user_items = UserItem.objects.filter(user=profile)
         items = Item.objects.all()
-        additional_blocks_user_items = range(6 - (user_items.count() % 6))
-        additional_blocks_items = range(6 - (items.count() % 6))
 
 
     context = {
         'user_items': user_items,
         'items': items,
-        'additional_blocks_user_items': additional_blocks_user_items,
-        'additional_blocks_items': additional_blocks_items,
     }
     return render(request, 'trade_hub/trade_offer.html', context=context)
 
@@ -128,11 +123,9 @@ def accept_trade(request, pk):
             trade.status = Trade.REVIEWING
             trade.save()
         else:
-            messages.error(request, 'You do not have all the items needed to trade')
+            messages.error(request, "You don't have all the items requested for the trade")
             return redirect('trade-hub')
         
-
-
     return redirect('history')
 
 
