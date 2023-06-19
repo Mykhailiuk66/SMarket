@@ -3,46 +3,47 @@
 @import url("https://fonts.cdnfonts.com/css/stereotones");
 
 :root {
-	--primary: #fb8c00;
+	--primary: #00897b;
 }
 
-/* Orange Light scheme (Default) */
+/* Teal Light scheme (Default) */
 /* Can be forced with data-theme="light" */
 [data-theme="light"],
 :root:not([data-theme="dark"]) {
-	--primary: #fb8c00;
-	--primary-hover: #f57c00;
-	--primary-focus: rgba(251, 140, 0, 0.125);
+	--primary: #00897b;
+	--primary-hover: #00796b;
+	--primary-focus: rgba(0, 137, 123, 0.125);
 	--primary-inverse: #fff;
 }
 
-/* Orange Dark scheme (Auto) */
+/* Teal Dark scheme (Auto) */
 /* Automatically enabled if user has Dark mode enabled */
 @media only screen and (prefers-color-scheme: dark) {
 	:root:not([data-theme]) {
-		--primary: #fb8c00;
-		--primary-hover: #ff9800;
-		--primary-focus: rgba(251, 140, 0, 0.25);
+		--primary: #00897b;
+		--primary-hover: #009688;
+		--primary-focus: rgba(0, 137, 123, 0.25);
 		--primary-inverse: #fff;
 	}
 }
 
-/* Orange Dark scheme (Forced) */
+/* Teal Dark scheme (Forced) */
 /* Enabled if forced with data-theme="dark" */
 [data-theme="dark"] {
-	--primary: #fb8c00;
-	--primary-hover: #ff9800;
-	--primary-focus: rgba(251, 140, 0, 0.25);
+	--primary: #00897b;
+	--primary-hover: #009688;
+	--primary-focus: rgba(0, 137, 123, 0.25);
 	--primary-inverse: #fff;
 }
 
-/* Orange (Common styles) */
+/* Teal (Common styles) */
 :root {
 	--form-element-active-border-color: var(--primary);
 	--form-element-focus-color: var(--primary-focus);
 	--switch-color: var(--primary-inverse);
 	--switch-checked-background-color: var(--primary);
 }
+
 /* ------------------------------------------------------- */
 
 .logo {
@@ -176,8 +177,8 @@ summary.user-settings:active {
 	border-left: 1px solid var(--primary);
 }
 
-.create-offer-actions > button{
-    margin: auto;
+.create-offer-actions > button {
+	margin: auto;
 }
 
 .create-offer-right {
@@ -208,10 +209,18 @@ summary.user-settings:active {
 }
 
 .user-inventory-actions {
-	text-align: end;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	padding-left: 1rem;
 	padding-right: 1rem;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
+}
+
+.user-inventory-actions > h1 {
+	margin-bottom: 0;
+	color: var(--primary);
+	text-decoration: overline;
 }
 
 .create-trade-offer-block input[type="checkbox"][class="item-checkbox"] {
@@ -267,6 +276,7 @@ summary.user-settings:active {
 	padding-right: 12px;
 	padding-top: 9px;
 	padding-bottom: 9px;
+	margin-left: 1rem;
 }
 
 [data-tooltip]:not(a, button, input) {
@@ -396,7 +406,7 @@ summary.user-settings:active {
 	display: grid;
 	grid-template-columns: 3fr 8fr 2fr;
 	grid-template-rows: 1fr;
-	grid-column-gap: 10px;
+	grid-column-gap: 0px;
 	grid-row-gap: 0px;
 
 	align-items: start;
@@ -657,6 +667,11 @@ main.container-fluid.history-main {
 	grid-template-columns: repeat(auto-fill, minmax(min(5rem, 100%), 1fr));
 }
 
-#password-toggle-btn{
-    height: fit-content;
+#password-toggle-btn {
+	height: fit-content;
+}
+
+.market-center {
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
