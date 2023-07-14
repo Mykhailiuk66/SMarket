@@ -2,11 +2,14 @@
 <div class="alerts">
 	{% for message in messages %}
 	<div class="alert {{message.tags}}">
-		<input type="checkbox" id="alert1" />
-		<label class="close" title="close" for="alert1">
+		<input type="checkbox" id="alert" />
+		<label class="close" title="close" for="alert">
 			<i class="icon-remove"></i>
 		</label>
-		<p class="inner"><strong>Warning!</strong> {{message}}</p>
+		<p class="inner">
+      <strong>{{ message.tags|title }}!</strong> <br>
+      {{message}}
+    </p>
 	</div>
 	{% endfor %}
 </div>
