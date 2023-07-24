@@ -56,7 +56,7 @@
 				id="trade-link"
 				name="trade-link"
 				placeholder="Your tradelink"
-				value="{{profile.trade_url}}"
+				value="{{profile.trade_url | default_if_none:''}}"
 			/>
 		</form>
 	</div>

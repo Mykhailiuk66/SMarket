@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from trade_hub.models import UserItem, ItemExterior, ItemQuality
 from .models import MarketItem
@@ -54,5 +55,6 @@ def delist_item(request, pk):
     if market_item.status == MarketItem.NEW:
         market_item.status = MarketItem.CANCELED
         market_item.save()
+        messages.info(request, f'"{market_item.user_item.item.name}" has been delisted')
 
     return redirect('history')

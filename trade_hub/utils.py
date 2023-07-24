@@ -56,6 +56,8 @@ def handle_guarantor_acceptance(request, trade):
             trade.guarantor = profile
             trade.status = Trade.SUCCESS
             trade.save()
+        
+        messages.success(request, 'Trade offer has been accepted')
     except DatabaseError:
         messages.error(request, 'An error occurred while processing the trade. Please try again.')
 
@@ -76,6 +78,7 @@ def handle_second_party_acceptance(request, trade):
                     trade_item.save()
                 trade.status = Trade.REVIEWING
                 trade.save()
+            messages.success(request, 'Trade offer has been accepted')
         except DatabaseError:
             messages.error(request, 'An error occurred while processing the trade. Please try again.')
     else:
@@ -107,5 +110,7 @@ def handle_trade_offer_creation(request):
             for item_id in second_party_items_chosen:
                 item = Item.objects.get(id=item_id)
                 TradeItem.objects.create(trade=trade, item=item)
+        
+        messages.success(request, 'Trade offer has been created')
     except DatabaseError:
         messages.error(request, 'An error occurred while creating the trade offer. Please try again.')

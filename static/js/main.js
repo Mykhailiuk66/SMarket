@@ -11,7 +11,7 @@ const alertElements = document.querySelectorAll('.alert');
 alertElements.forEach(alert => {
   setTimeout(() => {
     alert.remove();
-  }, 4000);
+  }, 5000);
   alert.addEventListener('click', () => {
     setTimeout(() => {
       alert.remove();

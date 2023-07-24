@@ -36,7 +36,7 @@ def handle_sell_form(request):
         return
 
     MarketItem.objects.create(user_item=user_item, price=price, seller=profile)
-    messages.success(request, 'The item has been put up for sale')
+    messages.success(request, f'"{user_item.item.name}" has been put up for sale')
 
 
 def handle_buy_form(request, market_fee=10):
@@ -76,7 +76,7 @@ def handle_buy_form(request, market_fee=10):
                 profile.save()
                 market_item.save()
 
-                messages.success(request, 'The items have been successfully purchased')
+                messages.success(request, f'"{market_item.user_item.item.name}" has been successfully purchased')
         except DatabaseError:
             item_already_sold = True
     if item_already_sold:

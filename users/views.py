@@ -54,7 +54,7 @@ def history(request):
 def update_inventory(request):
     profile = request.user.profile
     
-    generate_random_inventory(profile)
+    generate_random_inventory(request, profile)
 
     return redirect(request.GET['next'] if 'next' in request.GET else 'profile')
 
@@ -83,12 +83,14 @@ def login_user(request):
                 login(request, user)
                 return redirect(request.GET['next'] if 'next' in request.GET else 'trade-hub')
             else:
-                messages.error(request, 'Username OR password is incorrect')
+                messages.error(request, 'The username or password you entered is incorrect')
         else:
-            messages.error(request, 'Username OR password is incorrect')
+            messages.error(request, 'The username or password you entered is incorrect')
     else:
         form = CustomUserLoginForm()
 
+    messages.warning(request, "login: test")
+    messages.warning(request, "password: test_pass")
 
     context = {
         'action': action,
