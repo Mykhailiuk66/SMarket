@@ -3,8 +3,9 @@
 CS2 trading platform where users can buy, sell, and trade skins. You can create trade offers that other users
 can accept. Trades are processed after the guarantor reviews them.
 
-https://github.com/Mykhailiuk66/SMarket/assets/110096259/8ba6e2c5-f878-4351-9711-734da117bce4
+<a href="https://smarket-vitalii66.eu.pythonanywhere.com">Link</a>
 
+https://github.com/Mykhailiuk66/SMarket/assets/110096259/8ba6e2c5-f878-4351-9711-734da117bce4
 
 <h1>Getting Started</h1>
 
