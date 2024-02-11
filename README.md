@@ -4,7 +4,7 @@ First clone the repository from Github and switch to the new directory:
 
 ```
 $ git clone git@github.com:Mykhailiuk66/SMarket.git
-$ cd TodoTimeTracker
+$ cd SMarket
 ```
 
 Activate the virtualenv for your project.
