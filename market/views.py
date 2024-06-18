@@ -99,19 +99,12 @@ def market(request):
             items_fot_sale = items_fot_sale.filter(user_item__item__stattrak=True)
             form_inputs['stattrak'] = True
 
-        
-        additional_blocks_user_items = range(3 - (user_items.count() % 3))
-        additional_blocks_items = range(9 - (items_fot_sale.count() % 9))
-
-
     context = {
         'exteriors': exteriors,
         'qualities': qualities,
         'user_items': user_items,
         'form_inputs': form_inputs,
         'items_fot_sale': items_fot_sale,
-        'additional_blocks_user_items': additional_blocks_user_items,
-        'additional_blocks_items': additional_blocks_items,
     }
     return render(request, 'market/market.html', context=context)
 

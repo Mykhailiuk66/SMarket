@@ -1,46 +1,54 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="en" >
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {% block title %}
-    
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		{% block title %} 
     {% endblock title %}
-    <title>Trade Hub</title>
+		<title>Trade Hub</title>
 
-    <meta name="description" content="A minimalist layout for Login pages. Built with Pico CSS." />
+		<meta
+			name="description"
+			content="A minimalist layout for Login pages. Built with Pico CSS."
+		/>
 
-    <!-- Pico.css -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link href="https://fonts.cdnfonts.com/css/stereotones" rel="stylesheet">
-                       
-    <!-- <link
+		<!-- Pico.css -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
+		/>
+		<link
+			href="https://fonts.cdnfonts.com/css/stereotones"
+			rel="stylesheet"
+		/>
+
+		<!-- <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
 /> -->
 
-    <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.colors.min.css"
-    />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.colors.min.css"
+		/>
 
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 
-    <script src="https://kit.fontawesome.com/2e3e4fe502.js" crossorigin="anonymous"></script>
+		<script
+			src="https://kit.fontawesome.com/2e3e4fe502.js"
+			crossorigin="anonymous"
+		></script>
+	</head>
+
+	<body>
+		{% include 'navbar.html' %} 
+    {% include 'alert.html' %} 
     
-  </head>
-
-  <body>
-    {% include 'navbar.html' %}
-    {% include 'alert.html' %}
-
-    {% block content %}
-
+    {% block content%} 
     {% endblock content %}
 
-    <script src="{% static 'js/main.js' %}"></script>
-
-  </body>
+		<script src="{% static 'js/main.js' %}"></script>
+	</body>
 </html>

@@ -43,7 +43,7 @@ class Trade(models.Model):
 
     STATUSES = [
         (NEW, 'New'),
-        (REVIEWING, 'Reviewing'),
+        (REVIEWING, 'In Review'),
         (DECLINED, 'Declined'),
         (CANCELED, 'Canceled'),
         (SUCCESS, 'Success'),

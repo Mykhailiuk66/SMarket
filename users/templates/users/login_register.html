@@ -1,69 +1,73 @@
-{% extends 'main.html' %}
+{% extends 'main.html' %} 
 
 {% block title %}
-	<title>{{action}}</title>
-{% endblock title %}
+<title>{{action}}</title>
+{% endblock title %} 
 
-{% block content %}
+{% block content %} 
+
 {% if action == 'Sign In' %}
-	<main class="container form-main">
-		<article class="form-container">
-			<div>
-				<h1>{{action}}</h1>
-			<form method="POST">
-				{% csrf_token %}
-                
-                {{form.username}}
+  <main class="container form-main">
+    <article class="form-container">
+      <div>
+        <h1>{{action}}</h1>
+        <form method="POST">
+          {% csrf_token %} {{form.username}}
 
-                <div class="password-field">
-                    {{form.password}}
+          <div class="password-field">
+            {{form.password}}
 
-                    <button onclick="event.preventDefault()" id="password-toggle-btn">
-                        <i class="fa-solid fa-eye"></i>
-                    </button>
-                </div>
+            <span 
+              role="button"
+              onclick="event.preventDefault()"
+              id="password-toggle-btn"
+            >
+              <i class="fa-solid fa-eye"></i>
+            </span>
+          </div>
 
-                <hr>
-                <div class="login-hints">
-                    <span>
-                        Don’t have an Account?
-	    			    <a href="{% url 'register' %}"> Sign Up</a>
-                    </span>
-                    <br>
-                    <span>
-                        <a href="{% url 'reset-password' %}">Forgot password?</a>
-                    </span>
-                </div>
-				<br><br>
-				<button type="submit" class="contrast">{{action}}</button>
-			</form>
-			</div>
-		</article>
-	</main>
+          <hr />
+          <div class="login-hints">
+            <span>
+              Don’t have an Account?
+              <a href="{% url 'register' %}"> Sign Up</a>
+            </span>
+            <br />
+            <span>
+              <a href="{% url 'reset-password' %}"
+                >Forgot password?</a
+              >
+            </span>
+          </div>
+          <br /><br />
+          <button type="submit" class="contrast">{{action}}</button>
+        </form>
+      </div>
+    </article>
+  </main>
 {% else %}
-    <main class="container form-main">
-        <article class="form-container">
-            <div>
-                <h1>{{action}}</h1>
-            <form method="POST">
-                {% csrf_token %}
-                {% for field in form %}
-                    {{field}}
-
-                    {% for error in field.errors %}
-                        <p class="form-error">{{error}}</p>
-                    {% endfor %}
-
-                {% endfor %}
-                <hr>
-                Already have an Account?
-                <a href="{% url 'login' %}">Sign In</a>
-                <br><br>
-                <button type="submit" class="contrast">{{action}}</button>
-            </form>
-            </div>
-        </article>
-    </main>
-{% endif %}
+  <main class="container form-main">
+    <article class="form-container">
+      <div>
+        <h1>{{action}}</h1>
+        <form method="POST">
+          {% csrf_token %} 
+          
+          {% for field in form %} 
+            {{field}} 
+            {% for error in field.errors %}
+              <p class="form-error">{{error}}</p>
+            {% endfor %} 
+          {% endfor %}
+          <hr />
+          Already have an Account?
+          <a href="{% url 'login' %}">Sign In</a>
+          <br /><br />
+          <button type="submit" class="contrast">{{action}}</button>
+        </form>
+      </div>
+    </article>
+  </main>
+{% endif %} 
 
 {% endblock content %}
