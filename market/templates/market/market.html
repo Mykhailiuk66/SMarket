@@ -19,10 +19,11 @@
 					<input name="sell-form" value="sell-form" type="hidden"/>
 					<div class="items-div">
 						<div class="user-inventory-actions">
-							<a href="{% url 'update-inventory' %}?next={% url 'market' %}" role="button" class="outline refresh-inv-btn">
-								<i class="fa-solid fa-arrows-rotate"></i>
-							</a>
-						</div>
+                <h1>INVENTORY</h1>
+                <a href="{% url 'update-inventory' %}?next={% url 'market' %}" role="button" class="outline refresh-inv-btn">
+                  <i class="fa-solid fa-arrows-rotate"></i>
+                </a>
+            </div>
 
             <div class="market-items">
               {% for user_item in user_items %}

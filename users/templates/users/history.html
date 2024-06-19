@@ -15,7 +15,7 @@
 				<h2>Trades</h2>
 
 				{% for trade in trades %}
-				<details>
+				<details {% if trade.status in 'N,RW' %} open {% endif %}>
 					<summary>
 						<div class="trade-summary-div">
 							<div>
@@ -158,7 +158,7 @@
 				<h2>Market</h2>
 
 				{% for market_item in market_items %}
-				<details>
+				<details {% if market_item.status == 'N' %} open {% endif %}>
 					<summary>
 						<div class="trade-summary-div">
 							<div>
