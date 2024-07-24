@@ -23,7 +23,7 @@ def guarantor_hub(request):
     guarantor = request.user.groups.filter(name="guarantor").exists()
     
     if not guarantor:
-        messages.error(request, 'Access Denied')
+        messages.error(request, 'Access denied')
         return redirect('trade-hub')
 
     context = {
@@ -75,9 +75,11 @@ def cancel_trade(request, pk):
         trade.guarantor = profile
         trade.status = Trade.DECLINED
         trade.save()
+        messages.info(request, 'Trade offer has been declined')
         return redirect('guarantor-hub')
     elif profile == trade.creator or profile == trade.second_party:
         trade.status = Trade.CANCELED
+        messages.info(request, 'Trade offer has been canceled')
         trade.save()
 
     return redirect('history')
